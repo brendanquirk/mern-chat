@@ -1,5 +1,6 @@
 import User from '../models/userModel.js'
 import bcrypt from 'bcryptjs'
+import generateTokenAndCreateCooke from '../utils/generateToken.js'
 
 export const registerUser = async (req, res) => {
   try {
@@ -10,6 +11,7 @@ export const registerUser = async (req, res) => {
       return res.status(400).json({ error: 'passwords do not match' })
     }
 
+    //hashpassword for storage
     const salt = await bcrypt.genSalt(10)
     const hashedPassword = bcrypt.hashSync(password, salt)
 
@@ -29,13 +31,17 @@ export const registerUser = async (req, res) => {
           : picture,
     })
 
-    await newUser.save()
-    return res.status(201).json({
-      message: 'user created successfully',
-      username: newUser.username,
-      password: newUser.password,
-      picture: newUser.picture,
-    })
+    //store new user in db
+    if (newUser) {
+      generateTokenAndCreateCooke(newUser._id, res)
+      await newUser.save()
+      return res.status(201).json({
+        message: 'user created successfully',
+        username: newUser.username,
+        password: newUser.password,
+        picture: newUser.picture,
+      })
+    }
   } catch (error) {
     console.log(error)
   }
