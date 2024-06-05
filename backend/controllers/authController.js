@@ -47,8 +47,31 @@ export const registerUser = async (req, res) => {
   }
 }
 
-export const loginUser = (req, res) => {
-  res.send('Login Route')
+export const loginUser = async (req, res) => {
+  try {
+    const { username, password } = req.body
+    const foundUser = await User.findOne({ username })
+    const passwordMatch = await bcrypt.compare(
+      password,
+      foundUser?.password || ''
+    )
+
+    //check if user was found
+    if (!foundUser) {
+      return res.status(400).json({ error: 'Invalid Username' })
+    }
+
+    //check if the found user password matches the one from the body
+    if (!passwordMatch) {
+      return res.status(400).json({ error: 'Incorrect Password' })
+    }
+
+    generateTokenAndCreateCooke(foundUser._id, res)
+
+    res.status(200).json({ message: 'User Logged In', username })
+  } catch (error) {
+    res.status(500).json({ error: 'Server Error' })
+  }
 }
 
 export const logOutUser = (req, res) => {
