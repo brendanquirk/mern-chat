@@ -74,6 +74,11 @@ export const loginUser = async (req, res) => {
   }
 }
 
-export const logOutUser = (req, res) => {
-  res.send('Log Out Route')
+export const logOutUser = async (req, res) => {
+  try {
+    res.cookie('jwt', { maxAge: 0 })
+    res.status(200).json({ message: 'Logged Out Successfully' })
+  } catch (error) {
+    res.status(500).json({ error: 'Server Error' })
+  }
 }
