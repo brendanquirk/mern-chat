@@ -4,6 +4,6 @@ import isUserLoggedIn from '../middleware/checkLoggedInUser.js'
 
 const router = express.Router()
 
-router.post('/send/:id', isUserLoggedIn, sendMessage)
+router.post('/send/:id', sendMessage)
 
 export default router

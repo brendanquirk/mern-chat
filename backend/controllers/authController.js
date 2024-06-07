@@ -49,15 +49,13 @@ export const registerUser = async (req, res) => {
 
 export const loginUser = async (req, res) => {
   try {
+    console.log(res)
     const { username, password } = req.body
-    const foundUser = await User.findOne({ username })
-    const passwordMatch = await bcrypt.compare(
-      password,
-      foundUser?.password || ''
-    )
+    const user = await User.findOne({ username })
+    const passwordMatch = await bcrypt.compare(password, user?.password || '')
 
     //check if user was found
-    if (!foundUser) {
+    if (!user) {
       return res.status(400).json({ error: 'Invalid Username' })
     }
 
@@ -66,7 +64,10 @@ export const loginUser = async (req, res) => {
       return res.status(400).json({ error: 'Incorrect Password' })
     }
 
-    generateTokenAndCreateCooke(foundUser._id, res)
+    // console.log(user._id)
+    // console.log(generateTokenAndCreateCooke(user._id, res))
+
+    await generateTokenAndCreateCooke(user._id, res)
 
     res.status(200).json({ message: 'User Logged In', username })
   } catch (error) {
