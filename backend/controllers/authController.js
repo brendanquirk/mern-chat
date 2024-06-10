@@ -49,27 +49,19 @@ export const registerUser = async (req, res) => {
 
 export const loginUser = async (req, res) => {
   try {
-    console.log(res)
     const { username, password } = req.body
     const user = await User.findOne({ username })
     const passwordMatch = await bcrypt.compare(password, user?.password || '')
 
-    //check if user was found
-    if (!user) {
-      return res.status(400).json({ error: 'Invalid Username' })
+    //check if username and password are valid
+    if (!user || !passwordMatch) {
+      return res.status(400).json({ error: 'Invalid Username or Password' })
     }
 
-    //check if the found user password matches the one from the body
-    if (!passwordMatch) {
-      return res.status(400).json({ error: 'Incorrect Password' })
-    }
-
-    // console.log(user._id)
-    // console.log(generateTokenAndCreateCooke(user._id, res))
-
-    await generateTokenAndCreateCooke(user._id, res)
-
-    res.status(200).json({ message: 'User Logged In', username })
+    generateTokenAndCreateCooke(user._id, res)
+    res
+      .status(200)
+      .json({ _id: user._id, username: user.username, picture: user.picture })
   } catch (error) {
     res.status(500).json({ error: 'Server Error' })
   }

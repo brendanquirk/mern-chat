@@ -3,19 +3,24 @@ import User from '../models/userModel.js'
 
 const isUserLoggedIn = async (req, res, next) => {
   try {
+    console.log(req.cookies)
     const token = req.cookies.jwt
+    console.log(token)
 
     if (!token) {
-      return res.status(401).json({ message: 'Unauthorized Request' })
+      return res
+        .status(401)
+        .json({ message: 'Unauthorized - No Token Provided' })
     }
 
-    const decodedToken = jwt.veryify(token, process.env.JWT_SECRET)
+    const decodedToken = jwt.verify(token, process.env.JWT_SECRET)
 
     if (!decodedToken) {
       return res.status(401).json({ message: 'Invalid Request' })
     }
 
     const user = await User.findById(decodedToken.userId).select('-password')
+
     if (!user) {
       return res.status(404).json({ message: 'User Not Found' })
     }
