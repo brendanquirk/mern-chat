@@ -3,9 +3,7 @@ import User from '../models/userModel.js'
 
 const isUserLoggedIn = async (req, res, next) => {
   try {
-    console.log(req.cookies)
     const token = req.cookies.jwt
-    console.log(token)
 
     if (!token) {
       return res

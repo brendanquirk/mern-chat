@@ -3,7 +3,6 @@ import Chat from '../models/chatModel.js'
 
 export const sendMessage = async (req, res) => {
   try {
-    // console.log(req.user)
     const { message } = req.body
     const reciverId = req.params.id
     const senderId = req.user._id
