@@ -11,10 +11,11 @@ const useSignUp = () => {
     if (!success) return
 
     try {
-      const response = await axios.post(
-        'http://localhost:3001/api/auth/signup',
-        { username, password, confirmPassword }
-      )
+      const response = await axios.post('/api/auth/signup', {
+        username,
+        password,
+        confirmPassword,
+      })
 
       localStorage.setItem('loggedInUser', JSON.stringify(response.data))
       setLoggedInUser(response.data)

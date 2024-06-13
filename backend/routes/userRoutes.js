@@ -5,6 +5,6 @@ import { getUsers } from '../controllers/userController.js'
 
 const router = express.Router()
 
-router.get('/', isUserLoggedIn, getUsers, (req, res) => {})
+router.get('/', isUserLoggedIn, getUsers)
 
 export default router

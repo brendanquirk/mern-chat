@@ -1,20 +1,20 @@
 import User from './User'
+import useGetChats from '../hooks/useGetChats'
 
 const UserList = () => {
-  const users = [
-    { id: 1, username: 'User 1' },
-    { id: 2, username: 'User 2' },
-    { id: 3, username: 'User 3' },
-    { id: 4, username: 'User 4' },
-    { id: 5, username: 'User 5' },
-  ]
+  const { chats } = useGetChats()
+
   return (
     <div>
-      <ul>
-        {users.map((user) => (
-          <User key={user.id} user={user} />
-        ))}
-      </ul>
+      {chats.length === 0 ? (
+        <p>Loading chats...</p>
+      ) : (
+        <ul>
+          {chats.users.map((user) => (
+            <User key={user._id} user={user} />
+          ))}
+        </ul>
+      )}
     </div>
   )
 }

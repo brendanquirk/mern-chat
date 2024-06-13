@@ -7,7 +7,7 @@ const useLogout = () => {
 
   const logout = async () => {
     try {
-      const response = await axios.post('http://localhost:3001/api/auth/logout')
+      const response = await axios.post('/api/auth/logout')
       localStorage.removeItem('loggedInUser')
       setLoggedInUser(null)
     } catch (error) {

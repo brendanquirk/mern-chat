@@ -1,10 +1,10 @@
-const Message = () => {
+const Message = (message) => {
   return (
     <div className="flex justify-end items-center w-full mb-4">
       <div className="max-w-xs">
         <div className="chat chat-end">
           <div className="chat-bubble chat-bubble-primary">
-            <p className="text-sm">message</p>
+            <p className="text-sm">{message.message.message}</p>
           </div>
         </div>
       </div>
