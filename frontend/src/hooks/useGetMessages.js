@@ -10,8 +10,11 @@ const useGetMessages = () => {
   useEffect(() => {
     const getMessages = async () => {
       try {
-        const response = await axios.get(`/api/messages/${selectedChat._id}`)
-        setMessages(response.data.messages)
+        if (selectedChat?._id) {
+          const response = await axios.get(`/api/messages/${selectedChat._id}`)
+
+          setMessages(response.data.messages)
+        }
       } catch (error) {
         toast.error(error.message)
       } finally {

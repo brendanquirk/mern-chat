@@ -2,6 +2,7 @@ import { useState } from 'react'
 import Messages from './Messages'
 import { FaPaperPlane } from 'react-icons/fa'
 import { useChatContext } from '../context/ChatContext'
+import { useAuthContext } from '../context/AuthContext'
 import useSendMessage from '../hooks/useSendMessage'
 
 const MessageContainer = () => {
@@ -29,6 +30,7 @@ const MessageContainer = () => {
             <input
               type="text"
               placeholder="Type your message..."
+              value={newMessage}
               className="flex-1 bg-white border border-gray-400 rounded-md px-3 py-2 focus:outline-none focus:border-blue-500"
               onChange={(e) => setNewMessage(e.target.value)}
             />
@@ -46,9 +48,12 @@ const MessageContainer = () => {
 }
 
 const NoChat = () => {
+  const { loggedInUser } = useAuthContext()
   return (
     <div className="flex flex-col items-center justify-center h-full text-center p-4">
-      <h1 className="text-2xl font-bold mb-2">Welcome!</h1>
+      <h1 className="text-2xl font-bold mb-2">
+        Welcome {loggedInUser.username}!
+      </h1>
       <p className="text-lg">Select a user to start chatting.</p>
     </div>
   )
