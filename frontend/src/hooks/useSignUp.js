@@ -15,8 +15,8 @@ const useSignUp = () => {
         'http://localhost:3001/api/auth/signup',
         { username, password, confirmPassword }
       )
-      console.log(response)
-      localStorage.setItem('user', JSON.stringify(response.data))
+
+      localStorage.setItem('loggedInUser', JSON.stringify(response.data))
       setLoggedInUser(response.data)
     } catch (error) {
       toast.error(error.message)

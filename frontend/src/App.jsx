@@ -16,12 +16,18 @@ const App = () => {
   return (
     <div className="p-4 h-screen flex items-center justify-center">
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route
+          path="/"
+          element={!loggedInUser ? <Navigate to="/login" /> : <Home />}
+        />
         <Route
           path="/signup"
           element={loggedInUser ? <Navigate to="/" /> : <SignUp />}
         />
-        <Route path="/login" element={<Login />} />
+        <Route
+          path="/login"
+          element={loggedInUser ? <Navigate to="/" /> : <Login />}
+        />
       </Routes>
       <Toaster />
     </div>
