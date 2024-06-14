@@ -10,9 +10,9 @@ A real-time chat application built with React, Tailwind CSS, Node.js, Express, M
 
 - User Authentication (Registration, Login, Logout)
 - Real-time messaging using Socket.IO
-- User profile with picture upload
+- User profile
 - Display list of users
-- Search functionality to filter users
+- Search functionality to filter users _TBA_
 - Chat history persistence
 
 ## Technologies Used
