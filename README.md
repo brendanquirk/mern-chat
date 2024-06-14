@@ -1,5 +1,9 @@
 # Chat Application
 
+Deployed Link
+
+https://mern-chat-socket-k7j9.onrender.com/login
+
 A real-time chat application built with React, Tailwind CSS, Node.js, Express, MongoDB, and Socket.IO. This application allows users to register, login, and chat with other users. It includes features like user authentication, real-time messaging, and profile picture uploads.
 
 ## Features
