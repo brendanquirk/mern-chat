@@ -95,10 +95,7 @@ A real-time chat application built with React, Tailwind CSS, Node.js, Express, M
 
    ```sh
    cd chat-application
-   cd client
-   npm install
-   cd ../server
-   npm install
+   npm run build
    ```
 
    3. **Set Up Enviornmental Variables**
