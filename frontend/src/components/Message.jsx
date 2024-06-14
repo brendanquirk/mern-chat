@@ -1,7 +1,17 @@
 import { useAuthContext } from '../context/AuthContext'
+import { useChatContext } from '../context/ChatContext'
 
 const Message = ({ message }) => {
   const { loggedInUser } = useAuthContext()
+  const { selectedChat } = useChatContext()
+  const userPFP =
+    loggedInUser.picture === ''
+      ? 'https://www.milton.edu/wp-content/uploads/2019/11/avatar-placeholder.jpg'
+      : loggedInUser.picture
+  const chatPFP =
+    selectedChat.picture === ''
+      ? 'https://www.milton.edu/wp-content/uploads/2019/11/avatar-placeholder.jpg'
+      : selectedChat.picture
   const isOwnMessage = message.senderId === loggedInUser._id
 
   return (
@@ -13,10 +23,7 @@ const Message = ({ message }) => {
       {!isOwnMessage && (
         <div className="chat-image avatar mr-2">
           <div className="w-10 rounded-full">
-            <img
-              src="https://www.milton.edu/wp-content/uploads/2019/11/avatar-placeholder.jpg"
-              alt="avatar"
-            />
+            <img src={chatPFP} alt="avatar" />
           </div>
         </div>
       )}
@@ -36,10 +43,7 @@ const Message = ({ message }) => {
       {isOwnMessage && (
         <div className="chat-image avatar ml-2">
           <div className="w-10 rounded-full">
-            <img
-              src="https://www.milton.edu/wp-content/uploads/2019/11/avatar-placeholder.jpg"
-              alt="avatar"
-            />
+            <img src={userPFP} alt="avatar" />
           </div>
         </div>
       )}

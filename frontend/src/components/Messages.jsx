@@ -1,8 +1,23 @@
+import { useEffect, useRef } from 'react'
 import Message from './Message'
 import useGetMessages from '../hooks/useGetMessages'
+import useListenMessages from '../hooks/useListenMessages'
 
 const Messages = () => {
   const { messages, loading } = useGetMessages()
+  useListenMessages()
+
+  const messagesEndRef = useRef(null)
+
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
+  }
+
+  useEffect(() => {
+    if (!loading) {
+      scrollToBottom()
+    }
+  }, [messages, loading])
 
   if (loading) {
     return (
@@ -25,6 +40,7 @@ const Messages = () => {
       {messages.map((message) => {
         return <Message key={message._id} message={message} />
       })}
+      <div ref={messagesEndRef} />
     </div>
   )
 }
